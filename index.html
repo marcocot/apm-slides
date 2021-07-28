@@ -16,8 +16,110 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1>Application monitoring & performances</h1>
+					<h4>29 July 2021</h4>
+				</section>
+				<section>
+					<h2>Agenda</h2>
+					<ul>
+						<li>APM: General concepts</li>
+						<li>.NET Core environment: logging, metrics management and performance</li>
+						<li>Frontend applications: how to track errors and crashes</li>
+						<li>Kubernetes: what already exists</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Application performance monitoring/management (APM)</h2>
+					</section>
+					<section>
+						<h2>What is APM</h2>
+						<p>Application Performance Monitoring/Management is a solution for <i>capturing</i> and <i>measuring</i> performance metrics. </p>
+						<p>While seemingly almost identical, these terms mean—and can lead to—two different things.</p>
+					</section>
+					<section>
+						<h2>Application Performance Monitoring</h2>
+						<p>
+							falls under the management category. It plays a critical role as it points out that there is a problem within your application and provides a reactive approach.
+						</p>
+					</section>
+					<section>
+						<h2>Application Performance Management</h2>
+						<p>
+							 it has a broader scope of strategies in managing the app’s overall performance. It is a more proactive approach to performance engineering.
+						</p>
+
+						<aside class="notes">
+							For example, monitoring solutions will alert you when your Python app has memory spikes. However, management solutions take it a step further.
+							It will help you mitigate issues, starting with code application dependencies, memory trends, and user experience.
+
+							It means monitoring informs that users encountered problems. Management helps find the root cause of why these problems occurred. As a result, the latter provides a complete strategy ensuring full visibility into the app performance.
+						</aside>
+					</section>
+					<section>
+						<h2>How does it work?</h2>
+						<ol>
+							<li>Tracking your app’s behavior if it is within normal parameters;</li>
+    						<li>If not, it will start sending alerts;</li>
+    						<li>Collecting data with the source of the problem;</li>
+    						<li>Analyzing data and logs;</li>
+    						<li>Offering insight into the possible root cause.</li>
+						</ol>
+					</section>
+
+					<section data-background-image="https://www.dgsspa.com/documenti/allegati/dgs-application-performance-management-1.png" data-background-size="contain">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>.NET Core environment</h2>
+					</section>
+
+					<section>
+						<h2>Collecting data - Logging (I)</h2>
+						<h3>Log everything!</h3>
+						<ul>
+							<li>Major branching points in your code</li>
+							<li>When errors or unexpected values are encountered</li>
+							<li>Any I/O or resource intensive operations</li>
+							<li>Significant domain events</li>
+							<li>Request failures and retries</li>
+							<li>Beginning and end of time-consuming batch operations</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Collecting data - Logging (II)</h2>
+						<h3>Use Log Levels appropriately</h3>
+						<p>Every logging frameworks associate by default a logging level to each message. <strong>Debug</strong> and <strong>Info</strong> show debug
+							information and contextual information that’s helpful to understand the current flow. <strong>Warn</strong> indicates something is probably wrong.
+							<strong>Error</strong> indicates an error has occurred. Usually, we’ll want to log <strong>Error</strong> messages when we catch exceptions.
+							<strong>Fatal</strong> usually means a major error has occurred that requires to terminate Bthe application.</p>
+					</section>
+
+					<section>
+						<h2>Collecting data - Logging (III)</h2>
+						<h3>Enable only high-severity logs in Production</h3>
+						<p>As a rule of thumb, we don’t want to enable Debug and Info levels in production. We want to log just Warn messages and above or just Error and above. </p>
+					</section>
+
+					<section>
+						<h2>Collecting data - Logging (IV)</h2>
+						<h3>Log Exceptions</h3>
+						<p>For production debugging, logging Exceptions is crucial. It’s usually the most important piece of information we need to solve the bug</p>
+					</section>
+
+					<section>
+						<h2>Collecting data - Logging (V)</h2>
+						<h3>Log Context</h3>
+						<p>
+							To understand production problems, we need context. While the Exception is the most important thing, the Context is the 2nd most important. We need to know the Http Request, current thread, current machine, state, user information, etc.
+						</p>
+					</section>
+				</section>
 			</div>
 		</div>
 
