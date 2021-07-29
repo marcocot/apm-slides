@@ -7,12 +7,11 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
 
-    <title>reveal.js</title>
+    <title>Application monitoring & performances</title>
 
     <link rel="stylesheet" href="dist/reset.css" />
     <link rel="stylesheet" href="dist/reveal.css" />
     <link rel="stylesheet" href="dist/theme/league.css" />
-
     <link rel="stylesheet" href="plugin/highlight/monokai.css" />
   </head>
   <body>
@@ -163,6 +162,89 @@
           </section>
 
           <section>
+            <h2>Structuring data - Structured logging</h2>
+          </section>
+
+          <section>
+            <h2>Structured logging (I)</h2>
+            <p class="fragment">
+              Usually we log a simple string message, with a timestamp and a log
+              level
+            </p>
+            <pre class="fragment">
+      				<code data-trim data-noescape>
+                <script type="text/template">
+                  logger.Debug("User {0} has been deactivated", HttpContext.CurrentUser);
+                  // Output:
+                  // 2021-07-29 11:10 [DEBUG] User marco.cotrufo has been deactivated
+                </script>
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <h2>Structured logging (II)</h2>
+            <p class="fragment">
+                Structured logging is a modern approach, where logging events are treated as structured data rather than text
+            </p>
+            <pre class="fragment">
+      				<code data-trim data-noescape>
+                <script type="text/template">
+                  var requestInfo = new { Url = "http://myotherservice.test", Answer = 42 };
+                  logger.Info("Request is {@requestInfo}", requestInfo);
+                </script>
+              </code>
+            </pre>
+            <pre class="fragment">
+      				<code data-trim data-noescape>
+                <script type="text/template">
+                  {
+                    "timestamp": "2021-07-29 11:10",
+                    "level": "DEBUG",
+                    "message": "Request is { Url = \"http://myotherservice.test\", Answer = 42 }",
+                    "RequestInfo.Url": "http://myotherservice.test",
+                    "RequestInfo.Answer": 42,
+                    "CurrentUser": "marco.cotrufo"
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <h2>Structured logging (IV)</h2>
+            <h3>Serilog</h3>
+          </section>
+
+          <section data-background-image="https://procodeguide.com/wp-content/uploads/2020/05/ASP.NET-Core-Logging-1024x533.png" data-background-size="contain">
+          </section>
+
+          <section>
+            <h2>Why Serilog</h2>
+            <p>
+              <ul>
+                <li>Serilog supports both JSON and C# based configuration. </li>
+                <li>Logging in Serilog is dead simple</li>
+                <li>Great documentation and community</li>
+              </ul>
+            </p>
+          </section>
+
+          <section>
+            <h2>Structured logging (V)</h2>
+            <p class="fragment">
+              <ul>
+                <li>
+                  <a href="https://github.com/marcocot/AppMonitoring.POC">Demo App</a>
+                </li>
+                <li>
+                  <a href="http://192.168.10.126:5601/app/kibana">Dashboard</a>
+                </li>
+              </ul>
+            </p>
+          </section>
+
+          <section>
             <h2>Collecting data - Metrics</h2>
             <h3>AppMetrics</h3>
             <p>
@@ -170,6 +252,13 @@
               ASP.NET Core applications. It provides real-time insights about
               how the application is performing and provides a complete overview
               of the application’s health status.
+            </p>
+          </section>
+
+          <section>
+            <h2>Demo</h2>
+            <p>
+              <a href="http://appmonitoring-poc.kub1-ingress.ors.it/">Link</a>
             </p>
           </section>
         </section>
@@ -198,13 +287,13 @@
             <pre>
 				<code data-trim data-noescape>
 					<script type="text/template">
-import React from "react";
-import * as Sentry from "@sentry/react";
+            import React from "react";
+            import * as Sentry from "@sentry/react";
 
-<Sentry.ErrorBoundary>
-  <MyApplication />
-</Sentry.ErrorBoundary>
-</script>
+            <Sentry.ErrorBoundary>
+              <MyApplication />
+            </Sentry.ErrorBoundary>
+          </script>
 				</code>
 			</pre>
           </section>
@@ -276,10 +365,6 @@ import * as Sentry from "@sentry/react";
           ></section>
 
           <section>
-            <h2>Demo time</h2>
-          </section>
-
-          <section>
             <h2>Prometheus</h2>
           </section>
 
@@ -300,7 +385,9 @@ import * as Sentry from "@sentry/react";
             </ol>
           </section>
 
-          <section></section>
+          <section>
+            <h2>Demo time</h2>
+          </section>
         </section>
       </div>
     </div>
